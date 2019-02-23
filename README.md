@@ -4,7 +4,7 @@
 
 *arxiv: later on*
 
-**Note**: This repository is available at Dropbox https://www.dropbox.com/sh/s9f9h7kdmetztz9/AAAz6Z1nEovKIqgDsXo34qFia?dl=0.
+**Note: This repository is available at Dropbox https://www.dropbox.com/sh/s9f9h7kdmetztz9/AAAz6Z1nEovKIqgDsXo34qFia?dl=0.**
 
 ![Demo](./Demo.png)
 
@@ -37,6 +37,8 @@ rm BasketballPass_416x240_500.tar.gz raw00 raw01
 
 > Raw video is prepared for calculating Y-PSNR.
 You can comment this part at the bottom of `main_test.py`, such that raw video and its path are not required anymore.
+
+> Hint: You can go to our Dropbox link and get the unzip videos in dir `./Input/`.
 
 ### PQF label
 
