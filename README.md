@@ -44,7 +44,10 @@ You can comment this part at the bottom of `main_test.py`, such that raw video a
 
 Second, we prepare the **PQF label** `label_BasketballPass_416x240_500_qp37.mat` of `BasketballPass_416x240_500_qp37.yuv`.
 This PQF label is generated according to the PSNR curve.
-You can also generate it by BiLSTM network. For more detail, please refer to our paper.
+
+In practical use, we have no PSNR curve for PQF detection.
+In this case, you can generate the PQF label by an BiLSTM network.
+For more detail, please refer to our paper.
 
 > The format of the PQF label is `.mat` in this demo.
 You can change it with other formats (eg., `.txt`, `.npy`).
