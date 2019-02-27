@@ -2,7 +2,7 @@
 
 ***MFQE 2.0: A New Approach for Multi-frame Quality Enhancement on Compressed Video***
 
-*arxiv: later on*
+*arXiv: http://arxiv.org/abs/1902.09707*
 
 **Note: This repository is available at [Dropbox](https://www.dropbox.com/sh/s9f9h7kdmetztz9/AAAz6Z1nEovKIqgDsXo34qFia?dl=0).**
 
