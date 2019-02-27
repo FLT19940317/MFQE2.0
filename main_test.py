@@ -5,6 +5,11 @@ import cv2
 import os
 from skimage.measure import compare_psnr
 
+### option
+output_bmp = False # output enhanced frames (time-consuming and requires space)
+calculate_YPSNR = True # calculate Y-PSNR (requires raw video and its path)
+
+
 ### video information
 QP = 37
 WIDTH = 416
@@ -16,16 +21,18 @@ cmp_path = './Input/BasketballPass_416x240_500_qp37.yuv'
 label_path = './Input/label_BasketballPass_416x240_500_qp37.mat'
 output_dir = './Output/QP37'
 
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+if output_bmp:
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
 print("\nInformation check:")
 print("     %d x %d - %d frames (start from frame %d) - QP%d" % (WIDTH, HEIGHT, NUM_FRAMES, start_frame, QP))
-print("     raw video path:        %s" % raw_path)
 print("     compressed video path: %s" % cmp_path)
 print("     label path:            %s" % label_path)
-print("     output dir:            %s" % output_dir)
-
+if output_bmp:
+    print("     output dir:            %s" % output_dir)
+if calculate_YPSNR:
+    print("     raw video path:        %s" % raw_path)
 
 ### import Y,U,V
 print("\nimport cmp Y,U,V...")
@@ -96,36 +103,41 @@ enhanced_nonPQFs, average_fps = test_MFCNN.enhance(QP,Y,Non_PQF_indices,pre_PQF_
 print("ave. fps: %.1f" % average_fps)
 
 
-### export bmp
-print("\nexport enhanced frames (.bmp)...")
+### combine PQFs and non-PQFs
 Y_enhanced = np.zeros(Y.shape)
 Y_enhanced[PQF_indices] = enhanced_PQFs
 Y_enhanced[Non_PQF_indices] = enhanced_nonPQFs
-nfs = len(Y_enhanced)
-for ite_frame in range(nfs):
-    enhanced = yuv_process.YUV2RGB(Y_enhanced[ite_frame]*255.0,U[ite_frame],V[ite_frame])
-    output_path = output_dir+'/'+str(ite_frame)+'_enhanced.bmp'
-    cv2.imwrite(output_path, enhanced)
-    print("\r"+str(ite_frame+1)+" | "+str(nfs), end="", flush=True)
-print("")
+
+
+### export bmp
+if output_bmp:
+    print("\nexport enhanced frames (.bmp)...")
+    nfs = len(Y_enhanced)
+    for ite_frame in range(nfs):
+        enhanced = yuv_process.YUV2RGB(Y_enhanced[ite_frame]*255.0,U[ite_frame],V[ite_frame])
+        output_path = output_dir+'/'+str(ite_frame)+'_enhanced.bmp'
+        cv2.imwrite(output_path, enhanced)
+        print("\r"+str(ite_frame+1)+" | "+str(nfs), end="", flush=True)
+    print("")
 
 
 ### calculate delta Y-PSNR
-print("\nimport raw Y...")
-Y_raw = yuv_process.yuv_import(raw_path,(HEIGHT,WIDTH),NUM_FRAMES,start_frame,israw=True)
+if calculate_YPSNR:
+    print("\nimport raw Y...")
+    Y_raw = yuv_process.yuv_import(raw_path,(HEIGHT,WIDTH),NUM_FRAMES,start_frame,israw=True)
 
-print("\ncalculate Y-PSNR...")
-psnr_ori = 0
-psnr_enh = 0
-for ite_frame in range(nfs):
-    raw = Y_raw[ite_frame]
-    psnr_ori += compare_psnr(Y[ite_frame],raw,data_range=255)
-    psnr_enh += compare_psnr(Y_enhanced[ite_frame]*255.0,raw,data_range=255)
-    print("\r"+str(ite_frame+1)+" | "+str(nfs), end="", flush=True)
-print("")
+    print("\ncalculate Y-PSNR...")
+    psnr_ori = 0
+    psnr_enh = 0
+    for ite_frame in range(nfs):
+        raw = Y_raw[ite_frame]
+        psnr_ori += compare_psnr(Y[ite_frame],raw,data_range=255)
+        psnr_enh += compare_psnr(Y_enhanced[ite_frame]*255.0,raw,data_range=255)
+        print("\r"+str(ite_frame+1)+" | "+str(nfs), end="", flush=True)
+    print("")
 
-print("\nave. original PSNR: %.3f" % (psnr_ori/nfs))
-print("ave. present PSNR:  %.3f" % (psnr_enh/nfs))
-print("ave. delta PSNR:    %.3f" % ((psnr_enh-psnr_ori)/nfs))
+    print("\nave. original PSNR: %.3f" % (psnr_ori/nfs))
+    print("ave. present PSNR:  %.3f" % (psnr_enh/nfs))
+    print("ave. delta PSNR:    %.3f" % ((psnr_enh-psnr_ori)/nfs))
 
 print("\nDone!")
