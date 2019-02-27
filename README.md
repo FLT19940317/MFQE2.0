@@ -56,6 +56,8 @@ You can choose to:
 1. output enhanced frames or not (option `output_bmp`)
 2. calculate Y-PSNR or not (option `calculate_YPSNR`)
 
+at the top of `main_test.py`.
+
 > Saving enhanced frames may be time-consuming and requires storage space.
 
 > Caculating Y-PSNR requires raw video and its path.
