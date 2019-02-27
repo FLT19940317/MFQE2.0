@@ -38,9 +38,6 @@ rm BasketballPass_416x240_500.tar.gz raw00 raw01
 
 > For quick download, you can go to our [Dropbox](https://www.dropbox.com/sh/s9f9h7kdmetztz9/AAAz6Z1nEovKIqgDsXo34qFia?dl=0) and get the unzip videos in dir `./Input/` directly.
 
-> Raw video is prepared for calculating Y-PSNR.
-You can comment the `### calculate delta Y-PSNR` part at the bottom of `main_test.py`, such that raw video and its path are not required anymore.
-
 ### PQF label
 
 Second, we prepare the **PQF label** `label_BasketballPass_416x240_500_qp37.mat` of `BasketballPass_416x240_500_qp37.yuv`.
@@ -51,6 +48,17 @@ For example, if the compression PSNRs of frame `(i-1), i, (i+1)` are `36.3dB, 38
 > The format of the PQF label is `.mat` in this demo.
 You can change it with other formats (eg., `.txt`, `.npy`).
 You need only modify the `### import PQF label` part in `main_test.py`.
+
+### Two options
+
+You can choose to:
+
+1. output enhanced frames or not (option `output_bmp`)
+2. calculate Y-PSNR or not (option `calculate_YPSNR`)
+
+> Saving enhanced frames may be time-consuming and requires storage space.
+
+> Caculating Y-PSNR requires raw video and its path.
 
 ### Necessary information
 
@@ -64,9 +72,6 @@ Run `main_test.py` in command line.
 ## 3. Result
 
 ![Demo_result](./Demo_result.png)
-
-> Saving enhanced frames is time-consuming and requires storage space.
-You can comment the `### export bmp` part in `main_test.py`.
 
 # Note
 
