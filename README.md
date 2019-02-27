@@ -55,7 +55,7 @@ You need only modify the `### import PQF label` part in `main_test.py`.
 ### Necessary information
 
 At the top of `main_test.py`, video information is required.
-We fulfil it for this demo.
+We had fulfilled it for this demo.
 
 ## 2. Run
 
