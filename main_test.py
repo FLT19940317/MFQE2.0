@@ -107,12 +107,12 @@ print("ave. fps: %.1f" % average_fps)
 Y_enhanced = np.zeros(Y.shape)
 Y_enhanced[PQF_indices] = enhanced_PQFs
 Y_enhanced[Non_PQF_indices] = enhanced_nonPQFs
+nfs = len(Y_enhanced)
 
 
 ### export bmp
 if output_bmp:
     print("\nexport enhanced frames (.bmp)...")
-    nfs = len(Y_enhanced)
     for ite_frame in range(nfs):
         enhanced = yuv_process.YUV2RGB(Y_enhanced[ite_frame]*255.0,U[ite_frame],V[ite_frame])
         output_path = output_dir+'/'+str(ite_frame)+'_enhanced.bmp'
