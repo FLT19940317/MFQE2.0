@@ -5,7 +5,7 @@ def yuv_import(video_path,dims,nfs,startfrm,israw):
 
     fp = open(video_path,'rb')
 
-    blk_size = int(prod(dims) * 3 / 2) # 4:2:2
+    blk_size = int(prod(dims) * 3 / 2)
     fp.seek(blk_size*startfrm,0)
 
     d0 = dims[0]
