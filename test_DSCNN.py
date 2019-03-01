@@ -28,9 +28,7 @@ def enhance(QP,input):
     model_path = "./Model_DSCNN/QP" + str(QP) + "/model.ckpt-" + str(model_index)
 
     # video information
-    nfs = input.shape[0]
-    height = input.shape[1]
-    width = input.shape[2]
+    nfs, height, width = input.shape
 
     input = input[:,:,:,np.newaxis]
     input = input / 255.0
