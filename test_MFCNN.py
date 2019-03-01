@@ -28,6 +28,7 @@ def enhance(QP,input,Non_PQF_indices,pre_PQF_indices,sub_PQF_indices):
 
     # video information
     nfs, height, width = input.shape
+    nfs = len(Non_PQF_indices)
 
     input = input[:,:,:,np.newaxis]
     input = input / 255.0
