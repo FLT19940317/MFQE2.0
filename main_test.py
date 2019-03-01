@@ -25,6 +25,7 @@ if output_bmp:
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
+
 print("\nInformation check:")
 print("     %d x %d - %d frames (start from frame %d) - QP%d" % (WIDTH, HEIGHT, NUM_FRAMES, start_frame, QP))
 print("     compressed video path: %s" % cmp_path)
