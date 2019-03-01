@@ -27,9 +27,7 @@ def enhance(QP,input,Non_PQF_indices,pre_PQF_indices,sub_PQF_indices):
     model_path = "./Model_MFCNN/QP" + str(QP) + "/model.ckpt-" + str(model_index)
 
     # video information
-    nfs = len(Non_PQF_indices)
-    height = input.shape[1]
-    width = input.shape[2]
+    nfs, height, width = input.shape
 
     input = input[:,:,:,np.newaxis]
     input = input / 255.0
