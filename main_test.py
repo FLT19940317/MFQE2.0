@@ -37,6 +37,16 @@ if calculate_YPSNR:
 ### import Y,U,V
 print("\nimport cmp Y,U,V...")
 Y,U,V = yuv_process.yuv_import(cmp_path,(HEIGHT,WIDTH),NUM_FRAMES,start_frame,israw=False)
+# check
+WIDTH_save = WIDTH
+HEIGHT_save = HEIGHT
+while (WIDTH%8!=0):
+    WIDTH -= 1
+while (HEIGHT%8!=0):
+    HEIGHT -= 1
+Y = Y[:,:HEIGHT,:WIDTH]
+U = U[:,:int(HEIGHT/2),:int(WIDTH/2)]
+V = V[:,:int(HEIGHT/2),:int(WIDTH/2)]
 
 
 ### import PQF label
@@ -124,7 +134,8 @@ if output_bmp:
 ### calculate delta Y-PSNR
 if calculate_YPSNR:
     print("\nimport raw Y...")
-    Y_raw = yuv_process.yuv_import(raw_path,(HEIGHT,WIDTH),NUM_FRAMES,start_frame,israw=True)
+    Y_raw = yuv_process.yuv_import(raw_path,(HEIGHT_save,WIDTH_save),NUM_FRAMES,start_frame,israw=True)
+    Y_raw = Y_raw[:,:HEIGHT,:WIDTH]
 
     print("\ncalculate Y-PSNR...")
     psnr_ori = 0
