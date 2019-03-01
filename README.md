@@ -77,7 +77,12 @@ Run `main_test.py` in command line.
 
 # Note
 
-## 1. Warning
+## 1. Resolution
+
+The video resolution must be an integral multiple of 8 for HEVC compression and working of this demo.
+For example, 480P (854x480) will be cut into 848x480.
+
+## 2. Warning
 
 In our MFQE approach, each non-PQF should be enhanced with the help of its neighbouring two PQFs (previous one + subsequent one).
 However, the PQF label might be something like ('0' is non-PQF and '1' is PQF):
@@ -92,12 +97,12 @@ In these cases, the labels of these non-PQFs will be changed to '1':
 
 so they can be enhanced by DS-CNN (single-frame quality enhancement approach).
 
-## 2. MF-CNN models
+## 3. MF-CNN models
 
 There are two networks in `net_MFCNN.py`, one for QP=22,27,32 and the other for QP=37,42.
 The performances of these two networks are close.
 
-## 3. Generate PQF label
+## 4. Generate PQF label
 
 In practical use, we have no PSNR curve for PQF detection.
 In this case, you can generate the PQF label by an BiLSTM network.
